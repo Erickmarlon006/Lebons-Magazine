@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Lebons Magazine</title>
+</head>
+
+<body>
+    <section id="cart-shopping">
+        <div class="cart-header">
+            <h2>Carrinho</h2>
+            <button id="close-cart">
+                <i class="fa-solid fa-xmark" ></i>
+            </button>
+        </div>
+        <section id="cart-items"></section>
+        <span id="total-price"></span>
+        
+        <input type="button" value="Finalizar Compra">
+    </section>
+    <header>
+        <div>
+            <h2>Lebons Magazine</h2>
+        </div>
+        <div class="icons">
+            <button id="cartBtn"><i id="cart-icon" class="fa-solid fa-cart-shopping"></i></button>
+            <button id="accountBtn"><i id="account-icon" class="fa-solid fa-user"></i></button>
+        </div>
+    </header>
+    <main>
+        <section id="filters">
+            <label for="show-all">Todos</label>
+            <input id="show-all" name="filter" type="radio" checked>
+            <label for="show-eletronics">Eletrônicos</label>
+            <input id="show-eletronics" name="filter" type="radio">
+            <label for="show-books">Livros</label>
+            <input id="show-books" name="filter" type="radio">
+        </section>
+        <section class="items-collection">
+        </section>
+    </main>
+    <footer></footer>
+    <script type="module" src="./index.js"></script>
+</body>
+
+</html>
