@@ -1,0 +1,26 @@
+form{
+    width: 100%;
+    height: calc(100% - 80px);
+    display: flex;
+    justify-content: stretch;
+}
+form > section{
+    width: 33%;
+    margin: 1rem;
+    
+}
+#user-data, #payment-data, #products-data{
+    background-color: rgb(172, 168, 168);
+    border-radius: 0.4rem;
+}
+label{
+    font-weight: bold;
+}
+p{
+    text-align: center;
+}
+.inputs-container{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 3rem;
+}
