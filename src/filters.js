@@ -1,15 +1,7 @@
 const productsContainer = document.querySelector(".items-collection");
 
-function showAll() {
-  const hiddenProducts = Array.from(
-    productsContainer.getElementsByClassName("hidden")
-  );
-  for (const product of hiddenProducts) {
-    product.classList.remove("hidden");
-  }
-}
 function hideEletronics() {
-    showAll();
+  showAll();
   const eletronicProducts = Array.from(
     productsContainer.getElementsByClassName("eletronic")
   );
@@ -18,7 +10,7 @@ function hideEletronics() {
   }
 }
 function hideBooks() {
-    showAll();
+  showAll();
   const bookProducts = Array.from(
     productsContainer.getElementsByClassName("book")
   );
@@ -26,7 +18,14 @@ function hideBooks() {
     product.classList.add("hidden");
   }
 }
-
+function showAll() {
+  const hiddenProducts = Array.from(
+    productsContainer.getElementsByClassName("hidden")
+  );
+  for (const product of hiddenProducts) {
+    product.classList.remove("hidden");
+  }
+}
 export function initFilters() {
   document.querySelector("#show-all").addEventListener("click", showAll);
   document
