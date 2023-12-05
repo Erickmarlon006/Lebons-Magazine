@@ -2,11 +2,20 @@ import { items, readLocalStorage, saveLocalStorage } from "./catalog.js";
 const shoppingCart = document.querySelector("#cart-shopping");
 const idsCartItems = readLocalStorage("cart") ?? {};
 
+function goToCheckout() {
+  if (Object.keys(idsCartItems).length === 0) {
+    return;
+  }
+  window.location.href = window.location.origin + "/checkout.html";
+}
+
 export function initCart() {
-  var cartIcon = document.querySelector("#cart-icon");
-  var closeCart = document.querySelector("#close-cart");
+  const cartIcon = document.querySelector("#cart-icon");
+  const closeCart = document.querySelector("#close-cart");
+  const buyBtn = document.querySelector("#buyBtn");
   cartIcon.addEventListener("click", showShoppingCart);
   closeCart.addEventListener("click", closeShoppingCart);
+  buyBtn.addEventListener("click", goToCheckout);
 }
 
 function showShoppingCart() {
@@ -23,34 +32,38 @@ export function addToShoppingCart(id) {
     return;
   }
   idsCartItems[id] = 1;
-  saveLocalStorage("cart", idsCartItems);
   drawItemCard(id);
+  saveLocalStorage("cart", idsCartItems);
   updateTotalPrice();
 }
 
 function drawItemCard(productId) {
   const product = items.find((item) => item.id === productId);
-  const cartShopping = document.querySelector("#cart-items");
+  const cartItems = document.querySelector("#cart-items");
 
   const articleElement = document.createElement("article");
   articleElement.className = "cart-item";
 
   const cartItem = `<img src="${product.img}" alt="${product.title}">
   <div>
-    <button id="removeBtn-${product.id}">
-      <i class="fa-solid fa-xmark" ></i>
-    </button>
-    <h3>${product.title}</h3>
-    <p>${product.price}</p>
+    <h4>${product.title}</h4>
+    <p>R$${product.price.toFixed(2)}</p>
   </div>
-  <div> 
-    <input id="decrementBtn-${product.id}" type="button" value="-">
-    <p id='count-${product.id}'>${idsCartItems[product.id]}</p>
-    <input id="incrementBtn-${product.id}" type="button" value="+">
+  <div>
+    <span> 
+      <button id="removeBtn-${product.id}">
+        <i class="fa-solid fa-xmark" ></i>
+      </button>
+    </span>
+    <span>
+      <input id="decrementBtn-${product.id}" type="button" value="-">
+      <p id='count-${product.id}'>${idsCartItems[product.id]}</p>
+      <input id="incrementBtn-${product.id}" type="button" value="+">
+    </span>
   </div>`;
 
   articleElement.innerHTML = cartItem;
-  cartShopping.appendChild(articleElement);
+  cartItems.appendChild(articleElement);
 
   document
     .querySelector(`#decrementBtn-${product.id}`)
@@ -65,9 +78,9 @@ function drawItemCard(productId) {
 
 function incrementItemNumber(id) {
   idsCartItems[id]++;
-  saveLocalStorage("cart", idsCartItems);
   updateTotalPrice();
   updateCountInfo(id);
+  saveLocalStorage("cart", idsCartItems);
 }
 function decrementItemNumber(id) {
   if (idsCartItems[id] === 1) {
@@ -75,9 +88,9 @@ function decrementItemNumber(id) {
     return;
   }
   idsCartItems[id]--;
-  saveLocalStorage("cart", idsCartItems);
   updateTotalPrice();
   updateCountInfo(id);
+  saveLocalStorage("cart", idsCartItems);
 }
 
 function updateCountInfo(id) {
@@ -91,19 +104,28 @@ function removeFromShoppingCart(id) {
   renderCart();
 }
 export function renderCart() {
-  const cartShopping = document.querySelector("#cart-items");
-  cartShopping.innerHTML = "";
+  const cartItems = document.querySelector("#cart-items");
+  cartItems.innerHTML = "";
   for (const itemId in idsCartItems) {
     drawItemCard(itemId);
   }
 }
 export function updateTotalPrice() {
   const totalPricePlace = document.querySelector("#total-price");
+  const cartItems = document.querySelector("#cart-items");
   let totalPrice = 0;
   for (const productId in idsCartItems) {
     totalPrice +=
       items.find((item) => item.id === productId).price *
       idsCartItems[productId];
   }
-  totalPricePlace.textContent = `Total: R$${totalPrice.toFixed(2)}`;
+  if (totalPrice === 0) {
+    cartItems.style.display = "none";
+    totalPricePlace.innerHTML =
+      `<i class="fa-solid fa-cart-shopping"></i>
+      Seu carrinho está vazio. Procure no site os produtos que vão te deixar feliz. Quando encontrá-los, clique no botão adicionar ao carrinho`;
+  } else {
+    cartItems.style.display = "flex";
+    totalPricePlace.textContent = `Total: R$${totalPrice.toFixed(2)}`;
+  }
 }
