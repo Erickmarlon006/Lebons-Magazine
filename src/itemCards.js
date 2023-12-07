@@ -2,7 +2,7 @@ import { addToShoppingCart } from "./shoppingCart.js";
 var itemsCollection = document.querySelector(".items-collection");
 export function showItems(list) {
   for (const item of list) {
-    let itemCard = `<div class='item-card '>
+    let itemCard = `<div class='item-card ${item.type}'>
       <h2>${item.title}</h2>
       <img src='${item.img}'/>
       <h3>R$${item.price.toFixed(2)}</h3>
