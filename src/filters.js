@@ -1,20 +1,42 @@
 const productsContainer = document.querySelector(".items-collection");
 
-function hideEletronics() {
+function showEletronics() {
   showAll();
+  hideBooks();
+  hideShoes();
+}
+function showBooks() {
+  showAll();
+  hideEletronics();
+  hideShoes();
+}
+function showShoes() {
+  showAll();
+  hideEletronics();
+  hideBooks();
+}
+
+function hideEletronics() {
   const eletronicProducts = Array.from(
-    productsContainer.getElementsByClassName("eletronic")
+    productsContainer.getElementsByClassName("Eletronic")
   );
   for (const product of eletronicProducts) {
     product.classList.add("hidden");
   }
 }
 function hideBooks() {
-  showAll();
   const bookProducts = Array.from(
-    productsContainer.getElementsByClassName("book")
+    productsContainer.getElementsByClassName("Book")
   );
   for (const product of bookProducts) {
+    product.classList.add("hidden");
+  }
+}
+function hideShoes() {
+  const shoesProducts = Array.from(
+    productsContainer.getElementsByClassName("Shoes")
+  );
+  for (const product of shoesProducts) {
     product.classList.add("hidden");
   }
 }
@@ -28,10 +50,9 @@ function showAll() {
 }
 export function initFilters() {
   document.querySelector("#show-all").addEventListener("click", showAll);
-  document
-    .querySelector("#show-books")
-    .addEventListener("click", hideEletronics);
+  document.querySelector("#show-books").addEventListener("click", showBooks);
   document
     .querySelector("#show-eletronics")
-    .addEventListener("click", hideBooks);
+    .addEventListener("click", showEletronics);
+  document.querySelector("#show-shoes").addEventListener("click", showShoes);
 }
