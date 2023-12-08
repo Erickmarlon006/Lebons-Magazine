@@ -10,7 +10,6 @@ export async function getItems() {
       showItems(items);
     })
     .catch((error) => {
-      alert("Error ao buscar dados do banco");
       console.log(error);
     });
 }
